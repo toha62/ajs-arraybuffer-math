@@ -8,10 +8,10 @@ export default class Daemon extends Character {
   }
 }
 
-const deamon = new Daemon('Petya');
+// const deamon = new Daemon('Petya');
 
-deamon.attackDistance = 2;
-deamon.stoned = true;
+// deamon.attackDistance = 4;
+// deamon.stoned = true;
 
-console.log('attack = ', deamon.damagePoints);
-console.log('stoned = ', deamon.stoned);
+// console.log('attack = ', deamon.damagePoints);
+// console.log('stoned = ', deamon.stoned);

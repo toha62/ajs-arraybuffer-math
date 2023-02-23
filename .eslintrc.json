@@ -13,8 +13,11 @@
     ],
     "arrow-parens": [
       "error",
-       "as-needed"
+      "as-needed"
     ],
-    "allowAfterThis": true
+    "no-underscore-dangle": [
+      "error", 
+      { "allowAfterThis": true }
+    ]
   }
 }

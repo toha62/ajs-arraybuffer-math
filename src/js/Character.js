@@ -32,7 +32,10 @@ export default class Character {
   }
 
   get damagePoints() {
-    return this.attack * (1 - (this.attackDistance - 1) / 10 - Math.log2(this.attackDistance) * 0.05 * this.stoned);
+    const distanceDecrease = 1 - (this.attackDistance - 1) / 10;
+    const stonedDecrease = Math.log2(this.attackDistance) * 0.05 * this.stoned;
+
+    return this.attack * (distanceDecrease - stonedDecrease);
   }
 
   get stoned() {
@@ -44,24 +47,5 @@ export default class Character {
 
   set stoned(value) {
     this._stoned = value;
-  }
-
-  // Методы из ДЗ «Классы, наследование»
-  levelUp() {
-    if (!this.health) {
-      throw new Error('You can`t level up this character, because he is dead');
-    }
-    this.level += 1;
-    this.damagePoints = Math.round(this.damagePoints * 1.2);
-    this.defense = Math.round(this.defense * 1.2);
-    this.health = 100;
-  }
-
-  damage(points) {
-    if (!this.health) {
-      throw new Error('You can`t damage this character, because he is dead');
-    }
-    const health = this.health - Math.round(points * (1 - this.defense / 100));
-    this.health = health > 0 ? health : 0;
   }
 }

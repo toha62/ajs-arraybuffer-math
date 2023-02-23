@@ -17,6 +17,7 @@ export default class Character {
     this.type = type;
     this.health = 100;
     this.level = 1;
+    this.stoned = false;
   }
 
   get attackDistance() {
@@ -30,12 +31,19 @@ export default class Character {
     this._attackDistance = distance;
   }
 
-  get attack() {
-    return this._attack * (1 - (this.attackDistance - 1) / 10);
+  get damagePoints() {
+    return this.attack * (1 - (this.attackDistance - 1) / 10 - Math.log2(this.attackDistance) * 0.05 * this.stoned);
   }
 
-  set attack(attack) {
-    this._attack = attack;
+  get stoned() {
+    if (this.attackDistance > 9 || !this._stoned) {
+      return 0;
+    }
+    return 1;
+  }
+
+  set stoned(value) {
+    this._stoned = value;
   }
 
   // Методы из ДЗ «Классы, наследование»
@@ -44,8 +52,8 @@ export default class Character {
       throw new Error('You can`t level up this character, because he is dead');
     }
     this.level += 1;
-    this.attack = Math.round(this.attack * 1.2);
-    this.defence = Math.round(this.defence * 1.2);
+    this.damagePoints = Math.round(this.damagePoints * 1.2);
+    this.defense = Math.round(this.defense * 1.2);
     this.health = 100;
   }
 
@@ -53,7 +61,7 @@ export default class Character {
     if (!this.health) {
       throw new Error('You can`t damage this character, because he is dead');
     }
-    const health = this.health - Math.round(points * (1 - this.defence / 100));
+    const health = this.health - Math.round(points * (1 - this.defense / 100));
     this.health = health > 0 ? health : 0;
   }
 }

@@ -45,7 +45,6 @@ test.each([
   [-5],
 ])('should throws on uncorrect distance range', distance => {
   expect(() => {
-    // eslint-disable-next-line no-new
     const deamon = new Daemon('Baltazar');
     deamon.attackDistance = distance;
   }).toThrow();
@@ -57,12 +56,9 @@ test.each([
   [2, true, 85],
   [2, false, 90],
 ])('when distance %i cells and stoned = %s should return %i point damage', (distance, stoned, result) => {
-  expect(() => {
-    // eslint-disable-next-line no-new
-    const deamon = new Daemon('Baltazar');
-    deamon.attackDistance = distance;
-    deamon.stoned = stoned;
+  const deamon = new Daemon('Baltazar');
+  deamon.attackDistance = distance;
+  deamon.stoned = stoned;
 
-    expect(result).toBe(deamon.damagePoints);
-  });
+  expect(result).toBe(deamon.damagePoints);
 });

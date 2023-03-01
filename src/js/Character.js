@@ -20,6 +20,25 @@ export default class Character {
     this.stoned = false;
   }
 
+  set attack(value) {
+    this._attack = value;
+  }
+
+  get attack() {
+    const distanceAttack = 100 - (this.attackDistance - 1) * 10;
+    const stonedAttack = Math.log2(this.attackDistance) * 5 * this.stoned;
+
+    return this.attackDistance > 9 && this.stoned ? 0 : distanceAttack - stonedAttack;
+  }
+
+  set stoned(value) {
+    this._stoned = value;
+  }
+
+  get stoned() {
+    return this._stoned;
+  }
+
   get attackDistance() {
     return this._attackDistance;
   }
@@ -29,23 +48,5 @@ export default class Character {
       throw new Error('Distance must in range from 1 to 11');
     }
     this._attackDistance = distance;
-  }
-
-  get damagePoints() {
-    const distanceDecrease = 1 - (this.attackDistance - 1) / 10;
-    const stonedDecrease = Math.log2(this.attackDistance) * 0.05 * this.stoned;
-
-    return this.attack * (distanceDecrease - stonedDecrease);
-  }
-
-  get stoned() {
-    if (this.attackDistance > 9 || !this._stoned) {
-      return 0;
-    }
-    return 1;
-  }
-
-  set stoned(value) {
-    this._stoned = value;
   }
 }

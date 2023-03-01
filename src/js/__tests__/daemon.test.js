@@ -21,7 +21,7 @@ test('should create instance of class Daemon with initial value', () => {
     type: 'Daemon',
     health: 100,
     level: 1,
-    attack: 100,
+    _attack: 100,
     defense: 40,
     _stoned: false,
   });
@@ -54,11 +54,13 @@ test.each([
   [1, true, 100],
   [1, false, 100],
   [2, true, 85],
+  [10, true, 0],
   [2, false, 90],
-])('when distance %i cells and stoned = %s should return %i point damage', (distance, stoned, result) => {
+  [10, false, 10],
+])('when distance %i cells and stoned = %s should return %i attack', (distance, stoned, result) => {
   const deamon = new Daemon('Baltazar');
   deamon.attackDistance = distance;
   deamon.stoned = stoned;
 
-  expect(result).toBe(deamon.damagePoints);
+  expect(result).toBe(deamon.attack);
 });

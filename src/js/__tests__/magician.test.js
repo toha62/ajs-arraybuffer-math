@@ -21,7 +21,7 @@ test('should create instance of class Magician with initial value', () => {
     type: 'Magician',
     health: 100,
     level: 1,
-    attack: 60,
+    _attack: 60,
     defense: 40,
     _stoned: false,
   });
